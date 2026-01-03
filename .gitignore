@@ -1,0 +1,53 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+/.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+coverage/
+.cache/
+.vite/
+*.tgz
+
+# Environment files
+.env
+.env.*.local
+.env.local
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Certificate/key files
+*.pem
+*.key
+*.p12
+
+# Misc
+*.log
+*.tmp
+*.temp
