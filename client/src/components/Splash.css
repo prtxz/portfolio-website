@@ -1,0 +1,115 @@
+/* Full-screen black background */
+.splash {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #0b0b0b;
+  z-index: 9999;
+  transition: opacity 320ms ease, visibility 320ms ease;
+  color: #fff;
+}
+
+/* hide after end */
+.splash--hide {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* big, centered word */
+.word {
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 18px rgba(255,255,255,0.06), 0 0 6px rgba(255,255,255,0.06);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
+  /* responsive size */
+  font-size: clamp(3rem, 10vw, 7.5rem);
+  line-height: 1;
+  display: inline-block;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  padding: 0 1rem;
+  letter-spacing: 0.01em;
+}
+
+/* letters */
+.letter {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+  opacity: 0;
+  transform: translateY(20px) scale(.98);
+  filter: blur(4px);
+}
+
+/* Enter animation: staggered per letter */
+.word--enter .letter {
+  animation: letterIn 700ms cubic-bezier(.2,.9,.2,1) both;
+  animation-delay: calc(var(--i) * 60ms);
+}
+
+/* Hold state: final neutral */
+.word--hold .letter {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Exit animation (staggered): slightly faster */
+.word--exit .letter {
+  animation: letterOut 420ms cubic-bezier(.4,0,.2,1) both;
+  animation-delay: calc(var(--i) * 32ms);
+}
+
+/* Keyframes */
+@keyframes letterIn {
+  0% { opacity: 0; transform: translateY(28px) scale(.96); filter: blur(6px); }
+  60% { opacity: 1; transform: translateY(-8px) scale(1.04); filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes letterOut {
+  0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  100% { opacity: 0; transform: translateY(-36px) scale(.86); filter: blur(4px); }
+}
+
+/* Sparkle burst */
+.sparks {
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  overflow: visible;
+  opacity: 0;
+}
+.sparks--pop { opacity: 1; }
+.sparks span {
+  position: absolute;
+  left: calc(50% + (var(--n) * 6px));
+  top: calc(50% + (var(--n) * 4px));
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(180deg, #fff 0%, #ffd6d6 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(.2);
+  opacity: 0;
+  animation: spark 700ms cubic-bezier(.2,.9,.2,1) both;
+  animation-delay: calc(var(--n) * 42ms);
+}
+
+@keyframes spark {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(.2) translateY(0); filter: blur(0); }
+  60% { opacity: 1; transform: translate(-200%, -150%) scale(.9) translateY(-10%); }
+  100% { opacity: 0; transform: translate(-300%, -200%) scale(1.1) translateY(-30%); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .letter, .spark, .sparks { animation: none !important; transition: none !important; }
+  .word { font-size: clamp(2rem, 6vw, 4rem); }
+  .splash { display: none; } /* skip splash fully for reduced-motion */
+}

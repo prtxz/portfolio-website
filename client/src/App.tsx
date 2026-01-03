@@ -1,33 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import Splash from './components/Splash'
+import Landing from './components/Landing'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [splashDone, setSplashDone] = useState(false)
+
+  // Lock scroll while splash is active
+  useEffect(() => {
+    const body = document.body
+    if (!splashDone) body.classList.add('no-scroll')
+    else body.classList.remove('no-scroll')
+    return () => body.classList.remove('no-scroll')
+  }, [splashDone])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {!splashDone && <Splash onFinish={() => setSplashDone(true)} />}
+
+      <main
+        id="main"
+        role="main"
+        aria-hidden={!splashDone}
+        className={`app-root ${splashDone ? 'app-visible' : 'app-hidden'}`}
+      >
+        <div className="app-shell">
+          {/* App layout goes here — replace with your components */}
+        </div>
+        <div className="app-shell">
+  <Landing />
+</div>
+
+      </main>
     </>
   )
 }
