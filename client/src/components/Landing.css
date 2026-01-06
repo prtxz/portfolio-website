@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@400;600;700&display=swap');
+
+:root {
+  --page-gutter: 1.5rem; /* Minimal left gutter for edge alignment */
+}
+
 /* RESET */
 * {
   margin: 0;
@@ -16,8 +22,10 @@ body {
 
 /* LANDING SECTION */
 .landing {
-  display: grid;
-  place-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align to the left */
 
   min-height: 100vh;
   width: 100vw;
@@ -25,12 +33,14 @@ body {
   background: #000;
   color: #fff;
 
-  padding: 2rem;
+  /* Minimal left padding for leftmost alignment */
+  padding: 2.5rem 3rem 2.5rem var(--page-gutter);
 
   opacity: 0;
   transform: translateY(8px) scale(0.98);
-  transition: opacity 600ms ease,
-              transform 600ms cubic-bezier(.2,.9,.2,1);
+  transition:
+    opacity 600ms ease,
+    transform 600ms cubic-bezier(.2,.9,.2,1);
 }
 
 .landing--visible {
@@ -38,14 +48,289 @@ body {
   transform: translateY(0) scale(1);
 }
 
-/* IMAGE */
+.landing__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.45;
+  filter: grayscale(1) brightness(1.1);
+}
+
+.landing__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.landing__bg > * {
+  position: absolute;
+  top: 50%;
+  right: -20vw;
+  transform: translateY(-50%);
+  width: 130vmin;
+  height: auto;
+}
+
+/* PNG Image - Left aligned */
 .landing__img {
-  max-width: min(80vw, 720px);
+  position: relative;
+  z-index: 1;
+  max-width: min(50vw, 580px); /* Reduced width to leave room on right */
   width: 100%;
   height: auto;
+  margin-left: 0; /* Ensure no left margin */
 
   image-rendering: pixelated;
   filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
+}
+
+/* Content Container - Left aligned, limited width */
+.landing__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Left align all children */
+  gap: 2rem;
+  max-width: 55vw; /* Limit width to ~55% of viewport for right space */
+  width: 100%;
+  margin-left: 0; /* No left margin */
+  margin-right: auto; /* Push all extra space to the right */
+}
+
+/* Text Container - Left aligned */
+.landing__text {
+  align-self: flex-start;
+  max-width: 100%;
+  text-align: left;
+}
+
+/* Title - INCREASED FONT SIZE */
+.landing__title {
+  font-family: 'Handjet', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 2.25rem; /* Increased from 1.25rem */
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+/* Bio - INCREASED FONT SIZE */
+.landing__bio {
+  font-family: 'Handjet', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.4rem; /* Increased from 1.02rem */
+  line-height: 1.75;
+  max-width: 38rem;
+  color: rgba(235, 235, 235, 0.82);
+  text-align: left; /* Changed from justify for cleaner left alignment */
+}
+
+/* NAVIGATION BAR */
+.landing-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 1.75rem;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(18px);
+}
+
+.landing-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.landing-nav__item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    transform 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.landing-nav__item:hover {
+  transform: translateY(-1px);
+  text-shadow: 0 0 12px rgba(0, 255, 204, 0.55);
+}
+
+.landing-nav__icon {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0, 255, 204, 0.18), transparent 55%),
+    radial-gradient(circle at 80% 100%, rgba(0, 140, 255, 0.18), transparent 55%);
+  color: rgba(229, 255, 253, 0.9);
+  font-family: 'Handjet', system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.55);
+}
+
+.landing-nav__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Nav Label - INCREASED FONT SIZE */
+.landing-nav__label {
+  font-family: 'Handjet', system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.1rem; /* Increased from 0.95rem */
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.landing-nav__item:hover .landing-nav__label {
+  color: #e5fffd;
+}
+
+.landing-nav__item:hover .landing-nav__icon {
+  border-color: rgba(0, 255, 204, 0.6);
+  box-shadow:
+    0 0 14px rgba(0, 255, 204, 0.7),
+    0 0 0 1px rgba(0, 255, 204, 0.2);
+}
+
+/* ========================================
+   TABLET BREAKPOINT
+   ======================================== */
+@media (max-width: 768px) {
+  .landing-nav {
+    bottom: 1.25rem;
+    padding: 0.65rem 1.2rem;
+  }
+
+  .landing-nav__list {
+    gap: 1.1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .landing-nav__item {
+    font-size: 0.9rem;
+  }
+
+  .landing {
+    padding: 1.5rem 1rem 3.75rem 1rem; /* Reduced padding for mobile */
+    min-height: 100dvh;
+    justify-content: flex-start; /* Keep left aligned on tablet */
+  }
+
+  .landing__content {
+    margin-left: 0;
+    align-items: flex-start; /* Keep left aligned */
+    max-width: 90vw;
+  }
+
+  .landing__img {
+    max-width: min(85vw, 480px);
+  }
+
+  .landing__title {
+    font-size: 1.9rem;
+  }
+
+  .landing__bio {
+    font-size: 1.25rem;
+  }
+
+  .landing__bg > * {
+    right: -12vw;
+    width: 115vmin;
+  }
+}
+
+/* ========================================
+   MOBILE BREAKPOINT
+   ======================================== */
+@media (max-width: 600px) {
+  :root {
+    --page-gutter: 1rem;
+  }
+
+  .landing {
+    padding: 1.25rem 0.75rem 4rem 0.75rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .landing__content {
+    align-items: flex-start;
+    max-width: 100%;
+  }
+
+  .landing__img {
+    max-width: 90vw;
+  }
+
+  .landing__title {
+    font-size: 1.65rem;
+  }
+
+  .landing__bio {
+    font-size: 1.15rem;
+    line-height: 1.65;
+  }
+
+  .landing-nav {
+    bottom: 1rem;
+    width: calc(100% - 1.5rem);
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  .landing-nav__list {
+    gap: 1.1rem;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 0.1rem 0.1rem;
+    scrollbar-width: none;
+  }
+
+  .landing-nav__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .landing-nav__item {
+    justify-content: center;
+  }
+
+  .landing-nav__icon {
+    display: inline-flex;
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+
+  .landing-nav__label {
+    display: none;
+  }
 }
 
 /* Respect reduced motion */

@@ -1,4 +1,5 @@
-/* Full-screen black background */
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@400;700&display=swap');
+
 .splash {
   position: fixed;
   inset: 0;
@@ -10,21 +11,18 @@
   color: #fff;
 }
 
-/* hide after end */
 .splash--hide {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
 }
 
-/* big, centered word */
 .word {
   font-weight: 700;
   color: #fff;
   text-align: center;
   text-shadow: 0 0 18px rgba(255,255,255,0.06), 0 0 6px rgba(255,255,255,0.06);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
-  /* responsive size */
+  font-family: 'Handjet', system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
   font-size: clamp(3rem, 10vw, 7.5rem);
   line-height: 1;
   display: inline-block;
