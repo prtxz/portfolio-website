@@ -28,9 +28,8 @@ function App() {
           {/* App layout goes here — replace with your components */}
         </div>
         <div className="app-shell">
-  <Landing />
-</div>
-
+          <Landing />
+        </div>
       </main>
     </>
   )

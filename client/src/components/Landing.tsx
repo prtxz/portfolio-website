@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import prathiksha from '../assets/prathiksha.png'
+import Dither from './Dither'
+import PixelTransition from './PixelTransition'
 import './Landing.css'
 
 export default function Landing() {
@@ -15,26 +16,73 @@ export default function Landing() {
     <>
       <section className={`landing ${visible ? 'landing--visible' : ''}`} aria-label="Landing">
         <div className="landing__bg" aria-hidden="true">
-          <DotLottieReact
-            src="https://lottie.host/3556c400-6d33-4c7c-813a-cf3ab1504d5a/oQo1SAqBVo.lottie"
-            loop
-            autoplay
-          />
+          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+            <Dither
+              waveColor={[0.5, 0.5, 0.5]}
+              disableAnimation={false}
+              enableMouseInteraction
+              mouseRadius={0.3}
+              colorNum={4}
+              waveAmplitude={0.3}
+              waveFrequency={3}
+              waveSpeed={0.05}
+            />
+          </div>
         </div>
 
         <div className="landing__content">
-          <img src={prathiksha} alt="Prathiksha" className="landing__img" />
+          <div className="landing__left">
+            <img src={prathiksha} alt="Prathiksha" className="landing__img" />
 
-          <div className="landing__text">
-            <p className="landing__title">
-              Software Developer | AI & ML-enabled Full Stack Engineer
-            </p>
-            <p className="landing__bio">
-              Full-stack and AI/ML engineer who builds end-to-end web applications and brings
-              machine learning ideas into production. From intuitive frontend interfaces to robust
-              backend systems and model-driven features, the focus is on creating solutions that
-              scale and crafting products that make real impact.
-            </p>
+            <div className="landing__text">
+              <p className="landing__title">
+                Software Developer | AI & ML-enabled Full Stack Engineer
+              </p>
+              <p className="landing__bio">
+                Full-stack and AI/ML engineer who builds end-to-end web applications and brings
+                machine learning ideas into production. From intuitive frontend interfaces to robust
+                backend systems and model-driven features, the focus is on creating solutions that
+                scale and crafting products that make real impact.
+              </p>
+            </div>
+          </div>
+
+          <div className="landing__cards">
+            <PixelTransition
+              firstContent={
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg"
+                  alt="default pixel transition content, a cat!"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              }
+              secondContent={
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'grid',
+                    placeItems: 'center',
+                    backgroundColor: '#111',
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: 700,
+                      fontSize: '3rem',
+                      color: '#ffffff',
+                    }}
+                  >
+                    Yo, yo, yo! 1-4-8-3 to the 3 to the 6 to the 9
+                  </p>
+                </div>
+              }
+              gridSize={12}
+              pixelColor="#ffffff"
+              once={false}
+              animationStepDuration={0.4}
+              className="custom-pixel-card"
+            />
           </div>
         </div>
       </section>

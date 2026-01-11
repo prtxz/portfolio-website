@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@400;600;700&display=swap');
 
-:root {
-  --page-gutter: 1.5rem; /* Minimal left gutter for edge alignment */
-}
-
 /* RESET */
 * {
   margin: 0;
@@ -32,9 +28,7 @@ body {
 
   background: #000;
   color: #fff;
-
-  /* Minimal left padding for leftmost alignment */
-  padding: 2.5rem 3rem 2.5rem var(--page-gutter);
+  padding: 2.5rem 3rem 2.5rem 0;
 
   opacity: 0;
   transform: translateY(8px) scale(0.98);
@@ -54,24 +48,8 @@ body {
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
-  opacity: 0.45;
-  filter: grayscale(1) brightness(1.1);
-}
-
-.landing__bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.landing__bg > * {
-  position: absolute;
-  top: 50%;
-  right: -20vw;
-  transform: translateY(-50%);
-  width: 130vmin;
-  height: auto;
+  opacity: 0.25;
+  filter: grayscale(1) brightness(0.9);
 }
 
 /* PNG Image - Left aligned */
@@ -92,20 +70,32 @@ body {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Left align all children */
-  gap: 2rem;
-  max-width: 55vw; /* Limit width to ~55% of viewport for right space */
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
   width: 100%;
-  margin-left: 0; /* No left margin */
-  margin-right: auto; /* Push all extra space to the right */
+  padding-left: 2rem;
+  padding-right: 3rem;
 }
 
-/* Text Container - Left aligned */
+.landing__left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
 .landing__text {
   align-self: flex-start;
   max-width: 100%;
   text-align: left;
+}
+
+.landing__cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 40vw;
 }
 
 /* Title - INCREASED FONT SIZE */
@@ -237,15 +227,22 @@ body {
   }
 
   .landing {
-    padding: 1.5rem 1rem 3.75rem 1rem; /* Reduced padding for mobile */
+    padding: 1.5rem 1rem 3.75rem 0;
     min-height: 100dvh;
     justify-content: flex-start; /* Keep left aligned on tablet */
   }
 
   .landing__content {
-    margin-left: 0;
-    align-items: flex-start; /* Keep left aligned */
-    max-width: 90vw;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .landing__cards {
+    justify-content: flex-start;
+    max-width: 100%;
   }
 
   .landing__img {
@@ -260,22 +257,14 @@ body {
     font-size: 1.25rem;
   }
 
-  .landing__bg > * {
-    right: -12vw;
-    width: 115vmin;
-  }
 }
 
 /* ========================================
    MOBILE BREAKPOINT
    ======================================== */
 @media (max-width: 600px) {
-  :root {
-    --page-gutter: 1rem;
-  }
-
   .landing {
-    padding: 1.25rem 0.75rem 4rem 0.75rem;
+    padding: 1.25rem 0.75rem 4rem 0;
     justify-content: flex-start;
     align-items: flex-start;
   }
@@ -338,5 +327,6 @@ body {
   .landing,
   .landing__img {
     transition: none;
+    animation: none !important;
   }
 }
